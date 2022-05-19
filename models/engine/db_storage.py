@@ -46,8 +46,7 @@ class DBStorage:
         for clss in classes:
             if cls == clss:
                 return self.__session.query(cls).filter(cls.id == id)
-            else:
-                return None
+        return None
 
     def count(self, cls=None):
         """if class is given returns objects matching that class,
