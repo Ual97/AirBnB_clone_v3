@@ -47,6 +47,7 @@ class DBStorage:
            "Place": "places", "Review": "reviews", "State": "states", "User": "users"}
         for clss in classes:
             if cls == clss:
+                print(cls.__name__)
                 return self.__session.query(cls.__name__).get(id)
         return None
 
