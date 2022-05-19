@@ -46,7 +46,7 @@ class DBStorage:
         tbls = {"Amenity": "amenities", "City": "cities",
            "Place": "places", "Review": "reviews", "State": "states", "User": "users"}
         result = None
-        clss = self.__session.query(classes[cls]).all()
+        clss = self.__session.query(models.classes[cls]).all()
         for i in clss:
             if i.id == id:
                 result = clss
