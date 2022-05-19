@@ -41,7 +41,7 @@ class FileStorage:
         if (cls):
             return (len(self.all(cls)))
         else:
-            return (len(all()))
+            return (len(all(self)))
 
     def all(self, cls=None):
         """returns the dictionary __objects"""
