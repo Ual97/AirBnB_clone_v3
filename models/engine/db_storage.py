@@ -46,10 +46,9 @@ class DBStorage:
         tbls = {"Amenity": "amenities", "City": "cities",
            "Place": "places", "Review": "reviews", "State": "states", "User": "users"}
         result = None
-        clss = self.__session.query(models.classes[cls]).all()
-        for i in clss:
-            if i.id == id:
-                result = clss
+        for obj in self.all():
+            if obj.id == id:
+                result = obj
         return result
 
     def count(self, cls=None):
