@@ -44,7 +44,7 @@ class DBStorage:
     def get(self, cls, id):
         """Returns the object based on the class and its ID"""
         result = None
-        clss = self.__session.query(classes[cls].id)
+        clss = self.__session.query(models.classes[cls]).all()
         for i in clss:
             if i.id == id:
                 result = i
