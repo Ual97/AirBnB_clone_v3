@@ -43,7 +43,7 @@ class DBStorage:
 
     def get(self, cls, id):
         """Returns the object based on the class and its ID"""
-        clss = self.__session.query(classes[cls].get(id))
+        clss = self.__session.query(classes[cls].id)
         return clss
 
     def count(self, cls=None):
