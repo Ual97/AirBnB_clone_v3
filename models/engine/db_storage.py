@@ -4,6 +4,7 @@ Contains the class DBStorage
 """
 
 from select import select
+from tkinter.messagebox import NO
 import models
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
@@ -43,11 +44,12 @@ class DBStorage:
 
     def get(self, cls, id):
         """Returns the object based on the class and its ID"""
-        print(cls.__name__)
-        if cls == classes.keys():
-            return self.__session.query(cls.__name__).get(id)
-        print("no2")
-        return None
+        result = None
+        clss = self.__session.query(cls.__name__)
+        for i in clss:
+            if i.id == id:
+                result = clss
+        return result
 
     def count(self, cls=None):
         """if class is given returns objects matching that class,
