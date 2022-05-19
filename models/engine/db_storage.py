@@ -43,12 +43,10 @@ class DBStorage:
 
     def get(self, cls, id):
         """Returns the object based on the class and its ID"""
-        tbls = {"Amenity": "amenities", "City": "cities",
-           "Place": "places", "Review": "reviews", "State": "states", "User": "users"}
-        for clss in classes:
-            if cls == clss:
-                print(cls.__name__)
-                return self.__session.query(cls.__name__).get(id)
+        if cls == classes:
+            print(cls.__name__)
+            return self.__session.query(cls.__name__).get(id)
+            print("no")
         return None
 
     def count(self, cls=None):
