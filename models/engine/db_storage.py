@@ -47,7 +47,7 @@ class DBStorage:
            "Place": "places", "Review": "reviews", "State": "states", "User": "users"}
         for clss in classes:
             if cls == clss:
-                return self.__session.query(tbls[cls]).filter(tbls[cls].id == id)
+                return self.__session.query(cls.__name__).get(id)
         return None
 
     def count(self, cls=None):
