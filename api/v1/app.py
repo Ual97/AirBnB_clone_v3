@@ -7,17 +7,20 @@ from api.v1.views import app_views
 
 
 app = Flask(__name__)
-app.register_blueprint(app_views, url_prefix='/api/v1')
+app.register_blueprint(app_views)
 
 @app.teardown_appcontext
 def teardwn(exception):
     storage.close()
 
-@app.route('/hello')
-def hello():
-     return 'Hello, World!'
-
 if __name__ == '__main__':
-    app.run(host=environ['HBNB_API_HOST'],
-            port=environ['HBNB_API_PORT'],
+    if 'HBNB_API_HOST' in environ:
+        hst = '0.0.0.0'
+    else:
+        hst = environ['HBNB_API_HOST']
+    if 'HBNB_API_PORT' in environ:
+        prt = environ['HBNB_API_PORT']
+    else:
+        prt = '5000'
+    app.run(host=hst, port=prt,
             debug=True, threaded=True)
