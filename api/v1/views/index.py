@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 from flask import jsonify
-import app_views from api.v1.views
+from api.v1.views import app_views
 
 
-@app.route('/status')
-def hello():
+@app_views.route('/status')
+def sts():
     return jsonify({'status': 'ok'})
