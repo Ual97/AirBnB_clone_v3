@@ -70,6 +70,13 @@ test_file_storage.py'])
 
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_fet_and_count(self):
+        """Test storage.get and storage.count"""
+        self.assertIs(type(models.storage.get('State', '1')), None)
+        self.assertIs(type(models.storage.count()), int)
+
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_all_returns_dict(self):
         """Test that all returns the FileStorage.__objects attr"""
