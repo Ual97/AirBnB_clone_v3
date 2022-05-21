@@ -3,6 +3,7 @@
 Contains the class DBStorage
 """
 
+from select import select
 import models
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
@@ -39,6 +40,22 @@ class DBStorage:
                                              HBNB_MYSQL_DB))
         if HBNB_ENV == "test":
             Base.metadata.drop_all(self.__engine)
+
+    def get(self, cls, id):
+        """Returns the object based on the class and its ID"""
+        for i in classes:
+            if cls == classes[i]:
+                return self.__session.query(cls).get(id)
+        return None
+
+    def count(self, cls=None):
+        """if class is given returns objects matching that class,
+        else returns the count of all objects
+        """
+        if (cls):
+            return (len(self.all(cls)))
+        else:
+            return (len(self.all()))
 
     def all(self, cls=None):
         """query on the current database session"""
