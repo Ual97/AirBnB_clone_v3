@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """index module"""
-from flask import jsonify
+from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models import storage
 from models.state import State
@@ -19,7 +19,22 @@ def view_states():
     return jsonify(lst)
 
 
-@app_views.route('/states/a')
-def view_a_state():
-    """aaaaaaaaaaaaaaaa"""
-    return "a"
+@app_views.route('/state/<ide>', methods=['GET', 'DELETE', 'POST', 'PUT'])
+def view_a_state(ide):
+    """operations on state object by id"""
+    if request.method == 'GET':
+        obj = storage.get(State, ide)
+        if obj:
+            return jsonify(obj.to_dict())
+        abort(404)
+
+    elif request.method == 'DELETE':
+        obj = storage.get(State, ide)
+        if not obj:
+            abort(404)
+        storage.delete(obj)
+        storage.save()
+        return jsonify({})
+
+    elif request.method == 'POST':
+        return "wop"

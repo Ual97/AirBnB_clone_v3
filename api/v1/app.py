@@ -7,6 +7,7 @@ from api.v1.views import app_views
 
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 app.register_blueprint(app_views)
 
 
@@ -32,4 +33,5 @@ if __name__ == '__main__':
     else:
         prt = '5000'
     app.run(host=hst, port=prt,
-            debug=True, threaded=True)
+            debug=True,
+            threaded=True)
