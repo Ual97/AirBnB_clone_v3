@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """index module"""
+from tkinter import N
 from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models import storage
@@ -9,16 +10,11 @@ from models.city import City
 @app_views.route('/states/<ide>/cities', methods=['GET'], strict_slashes=False)
 def view_cities(ide):
     """sends a list of all cities in a given state id"""
-    objdct = storage.all(City)
-    lst = []
-    for obj in objdct:
-        if objdct[obj].to_dict().get('state_id') == ide:
-            dct = obj.to_dict()
-            lst.append(dct)
-        else:
-            abort(404)
-    return jsonify(lst)
-
+    objdct = storage.get("State", ide)
+    if objdct is None:
+        abort(404)
+    cities = [c.to_dict() for c in objdct.cities]
+    return jsonify(cities), 200
 
 @app_views.route('/cities/<ide>', methods=['DELTE'])
 def delete_city(ide):
