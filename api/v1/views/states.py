@@ -50,8 +50,7 @@ def view_a_state(ide):
         for key, value in robj.items():
             if key not in list:
                 setattr(obj, key, value)
-        
-        
+        return obj.to_dict(), 201
     elif request.method == 'DELETE':
         obj = storage.get(State, ide)
         if not obj:
