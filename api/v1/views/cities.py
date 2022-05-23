@@ -58,6 +58,7 @@ def post_city(ide):
         if "name" not in robj:
             abort(400, 'Missing name')
         else:
+            robj["state_id"] = ide
             newobj = City(**robj)
             storage.new(newobj)
             storage.save()
