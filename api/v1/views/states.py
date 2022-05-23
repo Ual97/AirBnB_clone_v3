@@ -39,7 +39,19 @@ def view_a_state(ide):
         if obj:
             return jsonify(obj.to_dict())
         abort(404)
-
+    elif request.method == 'PUT':
+        robj = request.get_json()
+        obj = storage.get(State, ide)
+        if not obj:
+            abort(404)
+        if not robj:
+            abort(400, 'Not a JSON')
+        list = ["id", "created_at", "updated_at"]
+        for key, value in robj.items():
+            if key not in list:
+                setattr(obj, key, value)
+        
+        
     elif request.method == 'DELETE':
         obj = storage.get(State, ide)
         if not obj:
