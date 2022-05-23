@@ -6,7 +6,7 @@ from models import storage
 from models.state import State
 
 
-@app_views.route('/states', methods=['POST'])
+@app_views.route('/states', methods=['POST'], methods=['GET'])
 def view_states():
     """sends list of state objects as dicts"""
     if (request.method == 'GET'):
