@@ -19,14 +19,12 @@ def view_cities(ide):
 @app_views.route('/cities/<ide>', methods=['DELTE'], strict_slashes=False)
 def delete_city(ide):
     """deletes a city with a given id"""
-    if request.method == 'DELETE':
-        obj = storage.all(City, ide)
-        if not obj:
-            abort(404)
-        storage.delete(obj)
-        storage.save()
-        return jsonify({})
-
+    city = storage.get("City", ide)
+    if city is None:
+        abort(404)
+    city.delete()
+    storage.save()
+    return jsonify({}), 200
 
 @app_views.route('/cities/<ide>', methods=['GET'], strict_slashes=False)
 def get_city(ide):
