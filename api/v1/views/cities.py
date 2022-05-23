@@ -3,7 +3,7 @@
 from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models import storage
-from models.state import City
+from models.city import City
 
 
 @app_views.route('/states/<ide>/cities', methods=['GET'], strict_slashes=False)
@@ -32,9 +32,7 @@ def delete_city(ide):
         return jsonify({})
 
 
-app_views.route('/cities/<ide>', methods=['GET'])
-
-
+@app_views.route('/cities/<ide>', methods=['GET'])
 def get_city(ide):
     """gets a city by given id"""
     if request.method == 'GET':
