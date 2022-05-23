@@ -19,15 +19,16 @@ def view_states():
             lst.append(dct)
         return jsonify(lst)
     elif (request.method == 'POST'):
-        if not request.get_json():
+        robj = request.get_json()
+        if not robj:
             abort(400, 'Not a JSON')
-        elif "name" not in request.get_json():
+        elif "name" not in robj:
             abort(400, "Missing name")
         else:
-            obj = request.get_json()
-            nobj = State(**obj)
-            nobj.save()
-            return jsonify(nobj.to_dict()), 201
+            obj = State(**robj)
+            storage.new(obj)
+            storage.save()
+            return obj.to_dict(), 201
 
 
 @app_views.route('/states/<ide>', methods=['GET', 'DELETE', 'PUT'])
