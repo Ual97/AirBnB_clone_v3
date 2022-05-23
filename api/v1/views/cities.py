@@ -59,14 +59,12 @@ def post_city(ide):
 @app_views.route('/cities/<ide>', methods=['PUT'])
 def put_city(ide):
     """puts a new city with given id"""
-    robj = request.get_json()
-    obj = storage.get(City, ide)
-    if not obj:
-        abort(404)
-    if not robj:
+    if not request.get_json():
         abort(400, 'Not a JSON')
-    list = ["id", "created_at", "updated_at", "state_id"]
-    for key, value in robj.items():
-        if key not in list:
-            setattr(obj, key, value)
-    return obj.to_dict(), 201
+    obj = storage.get("City", ide)
+    if obj is None:
+        abort(404)
+    obj_data = request.get_json()
+    obj.name = obj_data['name']
+    obj.save()
+    return jsonify(obj.to_dict()), 200
