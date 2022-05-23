@@ -41,21 +41,19 @@ def get_city(ide):
 @app_views.route('/states/<ide>/cities', methods=['POST'])
 def post_city(ide):
     """posts a city with a given id"""
-    if request.method == 'POST':
-        robj = request.get_json()
-        obj = storage.get(City, ide)
-        if not obj:
+    if not request.get_json():
+        abort(400, 'Not a JSON')
+    elif "name" not in request.get_json():
+        abort(400, 'Missing name')
+    else:
+        obj_data = request.get_json()
+        state = storage.get("State", ide)
+        if state is None:
             abort(404)
-        if not robj:
-            abort(400, 'Not a JSON')
-        if "name" not in robj:
-            abort(400, 'Missing name')
-        else:
-            robj["state_id"] = ide
-            newobj = City(**robj)
-            storage.new(newobj)
-            storage.save()
-            return newobj.to_dict(), 201
+        obj_data['state_id'] = state.id
+        obj = City(**obj_data)
+        obj.save()
+        return jsonify(obj.to_dict()), 201
 
 
 @app_views.route('/cities/<ide>', methods=['PUT'])
