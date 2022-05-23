@@ -16,7 +16,7 @@ def view_cities(ide):
     return jsonify(cities), 200
 
 
-@app_views.route('/cities/<ide>', methods=['DELTE'])
+@app_views.route('/cities/<ide>', methods=['DELTE'], strict_slashes=False)
 def delete_city(ide):
     """deletes a city with a given id"""
     if request.method == 'DELETE':
@@ -28,7 +28,7 @@ def delete_city(ide):
         return jsonify({})
 
 
-@app_views.route('/cities/<ide>', methods=['GET'])
+@app_views.route('/cities/<ide>', methods=['GET'], strict_slashes=False)
 def get_city(ide):
     """gets a city by given id"""
     if request.method == 'GET':
@@ -38,7 +38,7 @@ def get_city(ide):
         abort(404)
 
 
-@app_views.route('/states/<ide>/cities', methods=['POST'])
+@app_views.route('/states/<ide>/cities', methods=['POST'], strict_slashes=False)
 def post_city(ide):
     """posts a city with a given id"""
     if not request.get_json():
@@ -56,7 +56,7 @@ def post_city(ide):
         return jsonify(obj.to_dict()), 201
 
 
-@app_views.route('/cities/<ide>', methods=['PUT'])
+@app_views.route('/cities/<ide>', methods=['PUT'], strict_slashes=False)
 def put_city(ide):
     """puts a new city with given id"""
     if not request.get_json():
