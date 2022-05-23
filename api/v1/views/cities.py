@@ -15,6 +15,7 @@ def view_cities(ide):
     cities = [c.to_dict() for c in objdct.cities]
     return jsonify(cities), 200
 
+
 @app_views.route('/cities/<ide>', methods=['DELTE'])
 def delete_city(ide):
     """deletes a city with a given id"""
