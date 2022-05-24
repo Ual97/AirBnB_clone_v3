@@ -55,9 +55,7 @@ def create_user():
 
 @app_views.route('/users/<ide>', methods=['PUT'], strict_slashes=False)
 def update_user(ide):
-    '''
-        update existing user object
-    '''
+    """updates exisisting user"""
     if not request.get_json():
         abort(400, 'Not a JSON')
     obj = storage.get("User", ide)
